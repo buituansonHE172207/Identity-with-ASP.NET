@@ -1,0 +1,68 @@
+@page
+@model withEF.Pages_Blog.IndexModel
+@using Helpers
+
+@{
+    ViewData["Title"] = "Index";
+    int Index = 0;
+    PagingModel page = new PagingModel(){
+        CurrentPage = Model.currentPage,
+        CountPage = Model.CountPage,
+        GenerateUrl = (int? p) => Url.Page("Blog/index") + "?p=" + p
+    };
+}
+
+<h1>Danh sach bai viet</h1>
+
+<partial name="_Paging" model="page"/>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form method="get" asp-action="./Index">
+    <label>
+        Tim kiem
+    </label>
+    <input type="text" name="querry"/>
+    <input type="submit" value="Timkiem">
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].PublishDate)
+            </th>
+            <th>
+                Feature
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Article) {
+        <tr>
+            <td>
+                @(++Index) 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

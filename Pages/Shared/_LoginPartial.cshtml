@@ -1,0 +1,33 @@
+@using Microsoft.AspNetCore.Identity
+@using withEF.Models
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@{
+    //SignInManager.IsSignedIn(User);
+    //UserManager.GetUserName(User);
+}
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" class="link">
+                Xin chao @UserManager.GetUserName(User)
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Identity" asp-page="/Account/Logout" class="nav-link">Đăng xuat</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a asp-area="Identity" asp-page="/Account/Register" class="nav-link">Đăng ký</a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Identity" asp-page="/Account/Login" class="nav-link">Đăng nhập</a>
+        </li>
+    }
+</ul>
