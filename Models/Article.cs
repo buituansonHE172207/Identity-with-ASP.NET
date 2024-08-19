@@ -12,5 +12,7 @@ namespace withEF.Models
         public DateTime PublishDate { get; set; }
 
         public string Content {set; get;}
+
+        public int AuthorID { get; set; }
     }
 }
